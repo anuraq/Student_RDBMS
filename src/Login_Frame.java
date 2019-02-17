@@ -119,7 +119,7 @@ if("".equals(pwd)||"".equals(user)){
     JOptionPane.showMessageDialog(rootPane, "TextFields are required to filled");
 }
 if("root".equals(pwd)&&"root".equals(user)){
-    System.out.println("sucess");
+    System.out.println("success");
     login=true;
 }
 else{

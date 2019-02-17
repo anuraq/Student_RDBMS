@@ -128,10 +128,10 @@ public class Insert_Frame extends javax.swing.JFrame {
 
     private void insert_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insert_btnActionPerformed
 int R=Integer.parseInt(r_tf.getText());
-String N=r_tf.getText();
-int M=Integer.parseInt(r_tf.getText());
+String N=n_tf.getText();
+int M=Integer.parseInt(m_tf.getText());
 String user="root";
-String pwd = "root";
+String pwd = "12345";
 String c="jdbc:mysql://localhost:3306/";
 Connection conn=null;
 Connection conn2=null;
