@@ -121,6 +121,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Edit in Table"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edit_btnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="show_btn">
       <Properties>

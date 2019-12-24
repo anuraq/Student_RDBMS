@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /*
@@ -60,6 +61,11 @@ public class Insert_Frame extends javax.swing.JFrame {
         });
 
         edit_btn.setText("Edit in Table");
+        edit_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edit_btnActionPerformed(evt);
+            }
+        });
 
         show_btn.setText("Show Table");
         show_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -159,8 +165,16 @@ Connection conn2=null;
     }//GEN-LAST:event_insert_btnActionPerformed
 
     private void show_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_show_btnActionPerformed
-        // TODO add your handling code here:
+JFrame Table_Frame = new JFrame();
+this.setVisible(false);
+new Table_Frame().setVisible(true);         // TODO add your handling code here:
     }//GEN-LAST:event_show_btnActionPerformed
+
+    private void edit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_btnActionPerformed
+JFrame Edit_Frame = new JFrame();
+this.setVisible(false);
+new Edit_Frame().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_edit_btnActionPerformed
 
     /**
      * @param args the command line arguments

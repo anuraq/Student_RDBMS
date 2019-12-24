@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 import java.awt.Frame;
+import java.io.IOException;
 import java.sql.*;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /**
@@ -124,6 +127,7 @@ if("root".equals(pwd)&&"root".equals(user)){
 }
 else{
     System.out.println("fail");
+    JOptionPane.showMessageDialog(rootPane, "Incorrect Username or Password");
 }
 if(login==true){
 this.setVisible(false);
@@ -135,8 +139,12 @@ new Insert_Frame().setVisible(true);
     private void stp_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stp_btnActionPerformed
 JFrame Setup_Frame = new JFrame();
 this.setVisible(false);
-new Setup_Frame().setVisible(true);
-        // TODO add your handling code here:
+        try {
+            new Setup_Frame().setVisible(true);
+            // TODO add your handling code here:
+        } catch (IOException ex) {
+            Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_stp_btnActionPerformed
 
     /**

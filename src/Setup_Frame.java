@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONObject;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,12 +17,20 @@ import java.util.logging.Logger;
  * @author Home
  */
 public class Setup_Frame extends javax.swing.JFrame {
-
+    String uname="", pwd="";
     /**
      * Creates new form Setup_Frame
      */
-    public Setup_Frame() {
+    public Setup_Frame() throws IOException {
         initComponents();
+        JSON_manager jm = new JSON_manager();
+        if(jm.checkJSON()){
+                JSONObject jo = jm.readJSON();
+                JSONObject sq = jo.getJSONObject("MySQL");
+                uname = jo.getString("uname");
+                pwd = jo.getString("pwd");
+            }
+        
     }
 
     /**
@@ -115,24 +125,37 @@ public class Setup_Frame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Pro_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pro_btnActionPerformed
-String user=mu_tf.getText();
-String pwd = mp_pf.getText();
+if(!"".equals(uname)){
+    mu_tf.setText(uname);
+    mp_pf.setText(pwd);
+}
+String sqluser=mu_tf.getText();
+String sqlpwd = mp_pf.getText();
 String c="jdbc:mysql://localhost:3306/";
+JSON_manager jm = new JSON_manager();
 Connection conn=null;
 Connection conn2=null;
         try {
-            conn=DriverManager.getConnection(c,user,pwd);
+            conn=DriverManager.getConnection(c,sqluser,sqlpwd);
             System.out.println("...Connected...");
+            if(jm.checkJSON()){
+                JSONObject jo = jm.readJSON();
+            }
+            else{
+                jm.writeJSON(sqluser, sqlpwd);
+            }
             Statement s=(Statement)conn.createStatement();
             String q="create database if not exists TeachersApp;";
             s.executeUpdate(q);
             String c2="jdbc:mysql://localhost:3306/TeachersApp";
-            conn2=DriverManager.getConnection(c2,user,pwd);
+            conn2=DriverManager.getConnection(c2,sqluser,sqlpwd);
             Statement s2=(Statement)conn2.createStatement();
             q="create table if not exists student(Roll_No int(3),Name char(30),Marks_in_CSc int(3));";
             s2.executeUpdate(q);
         } catch (SQLException e) {
             System.out.println(e);
+        } catch (IOException ex) {
+            Logger.getLogger(Setup_Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
 JFrame Login_Frame = new JFrame();
 this.setVisible(false);
@@ -179,7 +202,11 @@ String url="https://dev.mysql.com/downloads/";
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Setup_Frame().setVisible(true);
+                try {
+                    new Setup_Frame().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Setup_Frame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
